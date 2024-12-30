@@ -85,7 +85,7 @@ const data = {
       icon: Settings,
       isActive: true,
       items: [
-        { title: "Profile", url: "#" ,icon: UserPen},
+        { title: "Profile", url: "profile" ,icon: UserPen},
         { title: "Account", url: "#" ,icon: Wrench},
         { title: "Appearance", url: "#" ,icon: SunMoon },
         { title: "Notification", url: "#" ,icon: Notification}
