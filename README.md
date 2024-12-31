@@ -143,4 +143,4 @@ Contributions are welcome! Please follow these steps:
    ```bash
    git push origin feature-name
    ```
-5. Open a pull request.
+5. Open a pull request
