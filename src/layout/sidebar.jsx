@@ -1,4 +1,4 @@
-import { AudioWaveform, BookOpen, Bot,SunMoon, Command,Wrench,Settings, Frame,UserPen, GalleryVerticalEnd, Map, PieChart, Settings2, SquareTerminal } from 'lucide-react'
+import { AudioWaveform, BookOpen, Bot,SunMoon, Command,Wrench,Settings, Frame,UserPen, GalleryVerticalEnd, Map, PieChart, Settings2, SquareTerminal, Bell as NotificationIcon } from 'lucide-react'
 import { useEffect, useState } from "react"; // Import useState and useEffect
 import axios from "axios"; // Ensure axios is imported
 import { NavMain } from "@/components/sidebar/nav-main"
@@ -15,6 +15,8 @@ import {
   
 
 } from "@/components/ui/sidebar"
+import { SidebarNav } from "@/components/sidebar/nav-dash"
+import Header from "@/layout/header"
 
 
 // This is sample data.
@@ -36,42 +38,7 @@ const data = {
       plan: "Free",
     },
   ],
-  navMain: [
-        {
-      name: "platform",
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        { title: "History", url: "#" },
-        { title: "Starred", url: "#" },
-        { title: "Settings", url: "#" },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        { title: "Genesis", url: "#" },
-        { title: "Explorer", url: "#" },
-        { title: "Quantum", url: "#" },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        { title: "Introduction", url: "#" },
-        { title: "Get Started", url: "#" },
-        { title: "Tutorials", url: "#" },
-        { title: "Changelog", url: "#" },
-      ],
-    },
-    
-  ],
+
   projects: [
     { name: "Design Engineering", url: "#", icon: Frame },
     { name: "Sales & Marketing", url: "#", icon: PieChart },
@@ -83,18 +50,18 @@ const data = {
       title: "Settings",
       url: "#",
       icon: Settings,
-      isActive: true,
+      isActive: false,
       items: [
-        { title: "Profile", url: "#" ,icon: UserPen},
+        { title: "Profile", url: "profile" ,icon: UserPen},
         { title: "Account", url: "#" ,icon: Wrench},
         { title: "Appearance", url: "#" ,icon: SunMoon },
-        { title: "Notification", url: "#" ,icon: Notification}
+        { title: "Notification", url: "#" ,icon: NotificationIcon}
       ],
     },
   ]
 }
 
- function AppSidebarContent({ ...props }) {
+export function AppSidebar({ ...props }) {
 
 
   const [users, setUsers] = useState([]); // State to hold users
@@ -128,12 +95,12 @@ const data = {
   const userToDisplay = users.length > 0 ? users[0] : null; // Get the first user or null if none
 
   return (
-    <Sidebar collapsible="icon" {...props} className="p-3">
-      <SidebarHeader className="pt-3">
-        <TeamSwitcher teams={data.teams} />
+    <Sidebar collapsible="icon" {...props} className="border-r-0">
+      <SidebarHeader className="relative h-16 px-2 py-4">
+      <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+      <SidebarNav />
         <NavProjects projects={data.projects} />
         <NavMain items={data.others} />
       </SidebarContent>
@@ -151,11 +118,4 @@ const data = {
   );
 }
 
-export function AppSidebar() {
-  return (
-    <SidebarProvider>
-      <AppSidebarContent />
-    </SidebarProvider>
-  )
-}
 

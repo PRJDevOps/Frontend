@@ -13,10 +13,12 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { ThemeProvider } from "@/components/theme-provider"
+import { SidebarProvider } from "@/components/ui/sidebar"
 
 export default function SettingsPage() {
   return (
     <ThemeProvider defaultTheme="dark">
+    <SidebarProvider>
       <div className="flex min-h-screen dark:bg-background">
       <AppSidebar />
 
@@ -106,6 +108,7 @@ export default function SettingsPage() {
           </main>
         </div>
       </div>
+      </SidebarProvider>
     </ThemeProvider>
   )
 }

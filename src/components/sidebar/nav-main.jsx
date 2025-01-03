@@ -1,6 +1,6 @@
 "use client"
-
-import { ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom"
+import { ChevronRight ,CircleHelp} from "lucide-react";
 
 import {
   Collapsible,
@@ -15,7 +15,8 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  SidebarGroupLabel
+  SidebarGroupLabel,
+  SidebarGroupContent
 } from "@/components/ui/sidebar"
 
 export function NavMain({
@@ -45,9 +46,10 @@ export function NavMain({
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
+                        <Link className="dark:hover:bg-gray-800 hover:bg-gray-200" to={`/${subItem.url}`}>
+                      {subItem.icon && <subItem.icon />}
                           <span>{subItem.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}
@@ -56,6 +58,14 @@ export function NavMain({
             </SidebarMenuItem>
           </Collapsible>
         ))}
+          <SidebarMenuItem>
+          <SidebarMenuButton asChild >
+              <Link to="/404" className="hover:bg-zinc-300 dark:hover:bg-zinc-800">
+              <CircleHelp className="size-4" />
+              <span>Help Center</span>
+              </Link>
+          </SidebarMenuButton>
+          </SidebarMenuItem>
       </SidebarMenu>
     </SidebarGroup>)
   );
