@@ -67,7 +67,7 @@ export default function LoginPage() {
             className="absolute inset-0 h-full w-full object-cover brightness-50"
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <h1 className="text-5xl font-bold text-white">Login to your account</h1>
+            <h1 className="text-5xl font-bold text-white">Login to your account now</h1>
           </div>
         </div>
 
