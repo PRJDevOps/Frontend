@@ -1,18 +1,18 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff} from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog"
 import {
   Form,
@@ -20,7 +20,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import {
@@ -48,6 +47,7 @@ const formSchema = z.object({
 export function AddUserDialog({ open, onOpenChange }) {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [isPasswordFilled, setIsPasswordFilled] = useState(false)
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -57,11 +57,16 @@ export function AddUserDialog({ open, onOpenChange }) {
       username: "",
       email: "",
       phoneNumber: "",
-      role: "Cashier",
+      role: undefined,
       password: "",
       confirmPassword: "",
     },
   })
+
+  useEffect(() => {
+    const password = form.watch("password")
+    setIsPasswordFilled(password.length >= 1)
+  }, [form.watch("password")])
 
   function onSubmit(values) {
     console.log(values)
@@ -70,168 +75,197 @@ export function AddUserDialog({ open, onOpenChange }) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px] overflow-y-auto max-h-[85vh]">
-        <DialogHeader>
-          <DialogTitle>Add New User</DialogTitle>
-          <DialogDescription>
-            Create new user here. Click save when you're done.
+      <DialogContent className="sm:max-w-[550px] max-h-[80vh] overflow-y-auto  border-gray-800  p-0">
+        <DialogHeader className="relative px-6 py-4">
+        
+          <DialogTitle className="text-xl font-semibold">Add New User</DialogTitle>
+          <DialogDescription className="text-gray-400 text-sm">
+            Create new user here. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 py-2">
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem className="space-y-1">
-                  <FormLabel>First Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="John" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem className="space-y-1">
-                  <FormLabel>Last Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem className="space-y-1">
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input placeholder="john_doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem className="space-y-1">
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="john.doe@example.com" type="email" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="phoneNumber"
-              render={({ field }) => (
-                <FormItem className="space-y-1">
-                  <FormLabel>Phone Number</FormLabel>
-                  <FormControl>
-                    <Input placeholder="+1234567890" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="role"
-              render={({ field }) => (
-                <FormItem className="space-y-1">
-                  <FormLabel>Role</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="px-6 pb-6">
+            <div className="space-y-3 py-2">
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-[120px_1fr] items-center gap-2">
+                    <FormLabel className="text-sm text-right">First Name</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a role" />
-                      </SelectTrigger>
+                      <Input 
+                        placeholder="John" 
+                        {...field}
+                        className=" border h-9 border-gray-200 dark:border-gray-800 text-sm  placeholder:text-gray-500" 
+                      />
                     </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Manager">Manager</SelectItem>
-                      <SelectItem value="Superadmin">Superadmin</SelectItem>
-                      <SelectItem value="Cashier">Cashier</SelectItem>
-                      <SelectItem value="Admin">Admin</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem className="space-y-1">
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <Input
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Enter your password"
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-[120px_1fr] items-center gap-2">
+                    <FormLabel className="text-sm text-right">Last Name</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="Doe" 
                         {...field}
+                        className=" border border-gray-200 dark:border-gray-800 h-9 text-sm  placeholder:text-gray-500" 
                       />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        {showPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem className="space-y-1">
-                  <FormLabel>Confirm Password</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <Input
-                        type={showConfirmPassword ? "text" : "password"}
-                        placeholder="Confirm your password"
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-[120px_1fr] items-center gap-2">
+                    <FormLabel className=" text-sm text-right">Username</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="john_doe" 
                         {...field}
+                        className=" border border-gray-200 dark:border-gray-800 h-9 text-sm  placeholder:text-gray-500" 
                       />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      >
-                        {showConfirmPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full">Save changes</Button>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-[120px_1fr] items-center gap-2">
+                    <FormLabel className=" text-sm text-right">Email</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="john.doe@gmail.com" 
+                        type="email" 
+                        {...field}
+                        className="border border-gray-200 dark:border-gray-800 h-9 text-sm  placeholder:text-gray-500" 
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-[120px_1fr] items-center gap-2">
+                    <FormLabel className=" text-sm text-right">Phone Number</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="+123456789" 
+                        {...field}
+                        className=" border border-gray-200 dark:border-gray-800 h-9 text-sm  placeholder:text-gray-500" 
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-[120px_1fr] items-center gap-2">
+                    <FormLabel className=" text-sm text-right">Role</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger className=" border border-gray-200 dark:border-gray-800  h-9 text-sm ">
+                          <SelectValue placeholder="Select a role" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="border-gray-200 dark:border-gray-800">
+                        <SelectItem value="Manager">Manager</SelectItem>
+                        <SelectItem value="Superadmin">Superadmin</SelectItem>
+                        <SelectItem value="Cashier">Cashier</SelectItem>
+                        <SelectItem value="Admin">Admin</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-[120px_1fr] items-center gap-2">
+                    <FormLabel className="text-sm text-right">Password</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          placeholder="e.g., S3cur3P@ssw0rd"
+                          {...field}
+                          className="border border-gray-200 dark:border-gray-800 h-9 text-sm  placeholder:text-gray-500 pr-10"
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="absolute right-0 top-0 h-full px-2 py-1 hover:bg-transparent text-gray-400"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-3 w-3" />
+                          ) : (
+                            <Eye className="h-3 w-3" />
+                          )}
+                        </Button>
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-[120px_1fr] items-center gap-2">
+                    <FormLabel className=" text-sm text-right">Confirm Password</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          type={showConfirmPassword ? "text" : "password"}
+                          placeholder="e.g., S3cur3P@ssw0rd"
+                          {...field}
+                          disabled={!isPasswordFilled}
+                          className={`  h-9 text-sm border border-gray-200 dark:border-gray-800 placeholder:text-gray-500 pr-10 ${
+                            !isPasswordFilled ? 'opacity-50 cursor-not-allowed' : ''
+                          }`}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="absolute right-0 top-0 h-full px-2 py-1 hover:bg-transparent text-gray-400"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          disabled={!isPasswordFilled}
+                        >
+                          {showConfirmPassword ? (
+                            <EyeOff className="h-3 w-3" />
+                          ) : (
+                            <Eye className="h-3 w-3" />
+                          )}
+                        </Button>
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="mt-4 flex justify-end py-4 bg-opacity-20">
+              <Button 
+                type="submit" 
+                className="h-9 px-4 text-sm dark:bg-white dark:text-black hover:bg-gray-800 bg-black text-white dark:hover:bg-gray-200"
+              >
+                Save changes
+              </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>

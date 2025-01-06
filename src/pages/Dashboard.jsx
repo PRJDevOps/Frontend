@@ -65,7 +65,7 @@ function Dashboard() {
                         </CardHeader>
                         <CardContent>
                           <div className="text-3xl font-bold">+2,350</div>
-                          <p className="text-sm text-green-500 text-muted-foreground">
+                          <p className="text-sm text-green-500/90 text-muted-foreground">
                             +180.1% from last month
                           </p>
                         </CardContent>
@@ -77,7 +77,7 @@ function Dashboard() {
                         </CardHeader>
                         <CardContent>
                           <div className="text-3xl font-bold">+12,234</div>
-                          <p className="text-sm text-green-500 text-muted-foreground">
+                          <p className="text-sm text-green-500/90 text-muted-foreground">
                             +19% from last month
                           </p>
                         </CardContent>
@@ -91,7 +91,7 @@ function Dashboard() {
                         </CardHeader>
                         <CardContent>
                           <div className="text-3xl font-bold">+573</div>
-                          <p className="text-sm text-green-500 text-muted-foreground">
+                          <p className="text-sm text-green-500/90 text-muted-foreground">
                             +201 since last hour
                           </p>
                         </CardContent>
