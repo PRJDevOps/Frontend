@@ -5,7 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import PrivateRoute from './util/adminRoute';
 import './index.css';
-
+import UserList from './pages/Users';
 const App = () => {
   return (
     <Router>
@@ -18,8 +18,13 @@ const App = () => {
             </PrivateRoute>
           }/>
         <Route path="/profile" element={
-            <PrivateRoute isAdminRoute={true}>
-              <Profile />
+              <PrivateRoute isAdminRoute={true}>
+                <Profile />
+              </PrivateRoute>
+            } />
+        <Route path="/users" element={
+          <PrivateRoute isAdminRoute={true}>
+              <UserList />
             </PrivateRoute>
           } />
       </Routes>

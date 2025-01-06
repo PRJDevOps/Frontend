@@ -116,7 +116,7 @@ const SidebarProvider = React.forwardRef((
             }
           }
           className={cn(
-            "group/sidebar-wrapper flex min-h-svh  has-[[data-variant=inset]]:bg-sidebar",
+            "group/sidebar-wrapper ",
             className
           )}
           ref={ref}
@@ -308,7 +308,7 @@ const SidebarFooter = React.forwardRef(({ className, ...props }, ref) => {
     (<div
       ref={ref}
       data-sidebar="footer"
-      className={cn("flex flex-col gap-2 p-2", className)}
+      className={cn("flex flex-col gap-2 p-1", className)}
       {...props} />)
   );
 })
