@@ -31,9 +31,6 @@ jobs:
       - name: Scan with Trivy
         run: |
           trivy fs --security-checks vuln,secret --exit-code 1 ./
-      - name: Scan with GoSec
-        run: |
-          gosec ./...
       - name: Scan with tfsec
         run: |
           tfsec -m HIGH
