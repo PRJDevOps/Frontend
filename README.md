@@ -9,8 +9,8 @@ This is a React-based frontend application built with Vite, utilizing Shadcn for
 - **Private Routes:** Access control for admin-only pages using `PrivateRoute` utility.
 - **Styling:** Designed with Tailwind CSS.
 - **UI Components:** Enhanced with Shadcn.
-- **Dark Mode Support:** Includes theme toggling using `ThemeToggle`.
-=======
+- # **Dark Mode Support:** Includes theme toggling using `ThemeToggle`.
+
 ## Overview
 
 This is a React-based frontend application built with Vite, utilizing Shadcn for UI components and Tailwind CSS for styling. The project incorporates powerful tools like Lucide for icons, Recharts for data visualization, and Axios for seamless API communication. It includes several pages and features private routing for secure access control, making it a robust solution for modern web development.
@@ -25,7 +25,7 @@ This is a React-based frontend application built with Vite, utilizing Shadcn for
 6. **Icon Integration:** Beautifully crafted and customizable icons provided by Lucide for consistent and scalable vector graphics.
 7. **Data Visualization:** Effective representation of data through customizable and responsive charts with Recharts.
 8. **API Communication:** Simplified data fetching and state management with Axios for making HTTP requests.
->>>>>>> frontend
+   > > > > > > > frontend
 
 ## Project Structure
 
@@ -95,6 +95,7 @@ src/
 ## Installation
 
 <<<<<<< HEAD
+
 1. Clone the repository:
 
    ```bash
@@ -120,8 +121,8 @@ src/
 
 ### Running the Project
 
-Run the development server using:
-=======
+# Run the development server using:
+
 ### Clone the Repository
 
 ```bash
@@ -136,13 +137,15 @@ npm install
 ```
 
 ### Start the Development Server
->>>>>>> frontend
+
+> > > > > > > frontend
 
 ```bash
 npm run dev
 ```
 
 <<<<<<< HEAD
+
 ### Build for Production
 
 To build the project for production:
@@ -167,9 +170,8 @@ npm run preview
 - **React Router DOM:** For routing and navigation.
 - **Tailwind CSS:** Utility-first CSS framework for styling.
 - **Shadcn:** UI components library.
-- **Vite:** Build tool for fast development and production builds.
-=======
-Open the application in your browser at [http://localhost:5173](http://localhost:5173).
+- # **Vite:** Build tool for fast development and production builds.
+  Open the application in your browser at [http://localhost:5173](http://localhost:5173).
 
 ## Dependencies
 
@@ -188,7 +190,7 @@ Open the application in your browser at [http://localhost:5173](http://localhost
 - **Recharts:** A powerful charting library for React applications. Recharts provides customizable and responsive chart components to visualize data effectively. Learn more at [Recharts Docs](https://recharts.org/).
 
 - **Axios:** A promise-based HTTP client for making API requests. Axios simplifies data fetching and state management in React applications with its intuitive API. Learn more at [Axios Docs](https://axios-http.com/).
->>>>>>> frontend
+  > > > > > > > frontend
 
 ## Environment Variables
 
@@ -218,6 +220,7 @@ The `PrivateRoute` component restricts access to admin-only pages. Example usage
 Contributions are welcome! Please follow these steps:
 
 <<<<<<< HEAD
+
 1. Fork the repository.
 2. Create a feature branch:
    ```bash
@@ -231,20 +234,19 @@ Contributions are welcome! Please follow these steps:
    ```bash
    git push origin feature-name
    ```
-5. Open a pull request
-=======
-1. **Fork the repository.**
-2. **Create a feature branch:**
+5. # Open a pull request
+6. **Fork the repository.**
+7. **Create a feature branch:**
    ```bash
    git checkout -b feature-name
    ```
-3. **Commit your changes:**
+8. **Commit your changes:**
    ```bash
    git commit -m "Add feature description"
    ```
-4. **Push to the branch:**
+9. **Push to the branch:**
    ```bash
    git push origin feature-name
    ```
-5. **Open a pull request.**
->>>>>>> frontend
+10. **Open a pull request.** > > > > > > > frontend > > > > > > > .
+    .
