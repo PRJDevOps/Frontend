@@ -9,6 +9,9 @@ export default defineConfig({
       '@': resolve(__dirname, './src'), // Ensure proper path resolution
     },
   },
+  define: {
+    'process.env': {}, // Optional: For other environment variables
+  },
   server: {
     host: true, // Allows access via IP address on your local network
     port: 3000, // Optional: Custom port for the dev server
