@@ -34,7 +34,7 @@ const NotFoundPage = () => {
   return (
     <ThemeProvider defaultTheme="dark">
       <Navbar />
-      <div className='justify-center flex flex-col items-center h-screen bg-[#101314]'>
+      <div className='justify-center flex flex-col items-center h-screen dark:bg-[#101314]'>
         <div> 
           <span className='text-center mt-4'> Oops! :((  </span>            
         </div>
@@ -66,7 +66,7 @@ const NotFoundPage = () => {
         <div className='mt-4'>
           <Link
             to='/'
-            className="text-white border-2 border-white font-bold py-2 px-8 rounded-full hover:bg-white/10 transition-colors duration-300 focus:outline-none focus:shadow-outline"
+            className=" border-2  dark:border-white font-bold py-2 px-8 rounded-full hover:bg-white/10 transition-colors duration-300 focus:outline-none focus:shadow-outline"
           >
             <span className='text-[25px]'>Visit to home</span>
           </Link>
