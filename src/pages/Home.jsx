@@ -1,9 +1,11 @@
 import { HeroSection } from "@/components/ui/hero-section-dark"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Navbar } from "@/layout/Navbar"
 
 const Home = () => {
   return (
     <ThemeProvider defaultTheme="dark">
+            <Navbar/>
 
     <HeroSection
       title="Welcome to Our Platform"
