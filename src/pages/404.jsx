@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'; // Added useState to the import
 import lottie from 'lottie-web';
 import { Link } from 'react-router-dom';
-import Navbar from '@/layout/Navbar';
+import Navbar from '@/layout/navbar';
 import { ThemeProvider } from '@/components/theme-provider';
 
 const NotFoundPage = () => {
