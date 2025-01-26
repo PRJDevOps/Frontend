@@ -6,6 +6,8 @@ import Profile from './pages/Profile';
 import PrivateRoute from './util/adminRoute';
 import './index.css';
 import UserList from './pages/Users';
+import NotFoundPage from './pages/404';
+
 const App = () => {
   return (
     <Router>
@@ -27,6 +29,7 @@ const App = () => {
               <UserList />
             </PrivateRoute>
           } />
+      <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );
