@@ -2,16 +2,25 @@ import { Link } from "react-router-dom"
 import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import DarkLogo from "@/assets/svg/MORATEL11.svg"
+import LightLogo from "@/assets/svg/MORATEL1.svg";
+import { useTheme } from "@/components/theme-provider"; // Assuming you have a theme provider
 
-export const Navbar = () => {  
+export const Navbar = () => {
+  const { theme } = useTheme(); // Get the current theme
+
   return (
-    <nav className="w-full  backdrop-blur  fixed top-0 left-0 z-50 ">
+    <nav className="w-full backdrop-blur fixed top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Brand Name */}
           <div className="flex-shrink-0">
-            <Link to="/" className="text-foreground text-xl font-bold">
-              DevOps
+            <Link to="/">
+              <img
+                src={theme === "dark" ? DarkLogo : LightLogo}
+                alt="Moratel Logo"
+                className="h-[200px] w-auto"
+              />
             </Link>
           </div>
 
@@ -50,11 +59,11 @@ export const Navbar = () => {
 
           {/* Right side buttons */}
           <div className="hidden md:flex items-center bg-white dark:bg-gray-950 text-xs font-medium backdrop-blur-3xl space-x-4">
-
-            <Button variant="ghost" 
-                      className="inline-flex rounded-full text-center group items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border-input border-[1px] hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all sm:w-auto py-4 px-10"
-                      >
-              <Link to="/login" >Get Started</Link> 
+            <Button
+              variant="ghost"
+              className="inline-flex rounded-full text-center group items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border-input border-[1px] hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all sm:w-auto py-4 px-10"
+            >
+              <Link to="/login">Get Started</Link>
             </Button>
           </div>
 
@@ -69,7 +78,7 @@ export const Navbar = () => {
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
 export default Navbar;

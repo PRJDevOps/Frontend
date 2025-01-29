@@ -71,8 +71,7 @@ export default function LoginPage() {
             <div className="absolute inset-0 p-10 flex items-center justify-center">
               <blockquote className="space-y-2 mt-auto">
                 <p className="text-lg italic leading-relaxed">
-                  &ldquo;This library has saved me countless hours of work and helped me deliver stunning designs to my
-                  clients faster than ever before.&rdquo;
+                  &ldquo;This app has streamlined my workflow, saving me countless hours and allowing me to manage construction projects more efficiently than ever before.&rdquo;
                 </p>
                 <footer className="text-sm text-right font-medium">— Sofia Davis</footer>
               </blockquote>
