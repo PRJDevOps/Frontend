@@ -1,8 +1,7 @@
-import { AudioWaveform, BookOpen, Bot,SunMoon, Command,Wrench,Settings, Frame,UserPen, GalleryVerticalEnd, Map, PieChart, Settings2, SquareTerminal, Bell as NotificationIcon } from 'lucide-react'
+import { AudioWaveform,SunMoon, Command,Wrench,Settings, Frame,UserPen, GalleryVerticalEnd, Map, PieChart, Settings2, SquareTerminal, Bell as NotificationIcon } from 'lucide-react'
 import { useEffect, useState } from "react"; // Import useState and useEffect
 import axios from "axios"; // Ensure axios is imported
 import { NavMain } from "@/components/sidebar/nav-main"
-import { NavProjects } from "@/components/sidebar/nav-projects"
 import { NavUser } from "@/components/sidebar/nav-user"
 import { TeamSwitcher } from "@/components/sidebar/team-switcher"
 import {
@@ -11,9 +10,7 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-  SidebarProvider,
   
-
 } from "@/components/ui/sidebar"
 import { SidebarNav } from "@/components/sidebar/nav-dash"
 import Header from "@/layout/header"
@@ -39,11 +36,7 @@ const data = {
     },
   ],
 
-  projects: [
-    { name: "Design Engineering", url: "#", icon: Frame },
-    { name: "Sales & Marketing", url: "#", icon: PieChart },
-    { name: "Travel", url: "#", icon: Map },
-  ],
+
   others: [
 
     {
@@ -101,7 +94,6 @@ export function AppSidebar({ ...props }) {
       </SidebarHeader>
       <SidebarContent>
       <SidebarNav />
-        <NavProjects projects={data.projects} />
         <NavMain items={data.others} />
       </SidebarContent>
       <SidebarFooter className="pb-3">
