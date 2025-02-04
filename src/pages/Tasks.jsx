@@ -99,26 +99,26 @@ export default function Tasks() {
         {/* Main Content */}
         <div className="flex-1 ">
           <Header />
-    <div className="bg-background p-4">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-semibold">Tasks</h1>
-          <p className="text-muted-foreground">
-          Heres a list of your tasks for this month!
-          </p>
+      <div className="bg-background p-4">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-2xl font-semibold">Tasks</h1>
+            <p className="text-muted-foreground">
+            Heres a list of your tasks for this month!
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <Button className="gap-2 " >
+              Add task
+            <UserPlus className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
-        <div className="flex gap-2">
-          <Button className="gap-2 " >
-            Add task
-          <UserPlus className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
 
-      <DataTable columns={columns} data={data} />
-    </div>
-    </div>
-    </div>
+        <DataTable columns={columns} data={data} />
+      </div>
+      </div>
+      </div>
 
       </SidebarProvider>
       </ThemeProvider>
