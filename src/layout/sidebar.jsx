@@ -1,4 +1,4 @@
-import { AudioWaveform,SunMoon, Command,Wrench,Settings, Frame,UserPen, GalleryVerticalEnd, Map, PieChart, Settings2, SquareTerminal, Bell as NotificationIcon } from 'lucide-react'
+import { AudioWaveform,SunMoon, Command,Wrench,Settings,UserPen, GalleryVerticalEnd, Bell as NotificationIcon } from 'lucide-react'
 import { useEffect, useState } from "react"; // Import useState and useEffect
 import axios from "axios"; // Ensure axios is imported
 import { NavMain } from "@/components/sidebar/nav-main"
@@ -13,7 +13,6 @@ import {
   
 } from "@/components/ui/sidebar"
 import { SidebarNav } from "@/components/sidebar/nav-dash"
-import Header from "@/layout/header"
 
 
 // This is sample data.

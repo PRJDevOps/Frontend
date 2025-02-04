@@ -29,7 +29,7 @@ return (
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                        <a href="#" className="hover:bg-zinc-300 dark:hover:bg-zinc-800">
+                        <a href="Tasks" className="hover:bg-zinc-300 dark:hover:bg-zinc-800">
                         <CheckSquare className="size-4" />
                         <span>Tasks</span>
                         </a>
