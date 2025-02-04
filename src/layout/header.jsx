@@ -1,7 +1,7 @@
-import { Search} from 'lucide-react'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { UserNav } from "@/components/dashboard/user-nav"
 import { Button } from "@/components/ui/button"
+import { SearchCommand } from "@/components/dashboard/SearchDialog"
 import { useSidebar } from "@/components/ui/sidebar"
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card"
 
@@ -38,11 +38,7 @@ export default function Header() {
                 <p className="text-xs">⌘B</p>
               </HoverCardContent>
             </HoverCard>
-            <Search className="h-4 w-4 text-muted-foreground" />
-            <input 
-              placeholder= " Search..." 
-              className="h-9 w-60 bg-transparent border-none focus:outline-none placeholder:text-muted-foreground text-sm"
-            />
+           <SearchCommand/>
           </div>
           <ThemeToggle />
           <UserNav />

@@ -4,7 +4,7 @@ import { MainNav } from "@/components/dashboard/main-nav"
 import { AppSidebar } from "@/layout/sidebar"
 import { Overview } from "@/components/dashboard/overview"
 import { RecentSales } from "@/components/dashboard/recent-sales"
-import { Search } from "@/components/dashboard/search"
+import { SearchCommand } from "@/components/dashboard/SearchDialog"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -23,7 +23,7 @@ function Dashboard() {
                 <div className="flex h-16 items-center px-4">
                   <MainNav className="mx-6" />
                   <div className="ml-auto flex items-center space-x-4">
-                    <Search />
+                    <SearchCommand />
                     <ThemeToggle />
                     <UserNav />
                   </div>
