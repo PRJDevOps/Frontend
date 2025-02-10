@@ -21,17 +21,17 @@ const App = () => {
             </PrivateRoute>
           }/>
         <Route path="/profile" element={
-              <PrivateRoute isAdminRoute={false}>
+              <PrivateRoute isAdminRoute={true}>
                 <Profile />
               </PrivateRoute>
             } />
         <Route path="/users" element={
-          <PrivateRoute isAdminRoute={false}>
+          <PrivateRoute isAdminRoute={true}>
               <UserList />
             </PrivateRoute>
           } />
            <Route path="/tasks" element={
-          <PrivateRoute isAdminRoute={false}>
+          <PrivateRoute isAdminRoute={true}>
               <Tasks />
             </PrivateRoute>
           } />
