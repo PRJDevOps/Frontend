@@ -9,14 +9,23 @@ const PrivateRoute = ({ isAdminRoute, children }) => {
 
   useEffect(() => {
     const checkAdmin = async () => {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        setIsAdmin(false);
+        setLoading(false);
+        return;
+      }
+
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+            Authorization: `Bearer ${token}`,
           },
         });
-        const user = response.data;
-        setIsAdmin(user.admin === 1);
+        
+        // Access the role from the correct path in the response
+        const userData = response.data.data;
+        setIsAdmin(userData && userData.role === "admin");
       } catch (error) {
         console.error('Error checking admin status:', error);
         setIsAdmin(false);

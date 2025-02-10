@@ -63,20 +63,29 @@ export function AppSidebar({ ...props }) {
   useEffect(() => {
     const fetchUsers = async () => {
       const token = localStorage.getItem('authToken');
+      if (!token) {
+        setError('No authentication token found');
+        setLoading(false);
+        return;
+      }
+
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        const fetchedUsers = response.data.users; // Assuming users is an array
-        setUsers(fetchedUsers); // Set users in state
+        if (response.data.success) {
+          setUsers([response.data]); // Pass the entire response object
+        } else {
+          setError('Failed to fetch user data');
+        }
       } catch (error) {
         console.error('Error fetching users:', error);
-        setError('Failed to fetch users'); // Set error message
+        setError('Failed to fetch users');
       } finally {
-        setLoading(false); // Set loading to false after fetching
+        setLoading(false);
       }
     };
 

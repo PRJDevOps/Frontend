@@ -34,17 +34,17 @@ export default function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-   /* setError('');
+    setError('');
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/login`, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         email,
         password,
       });
 
       if (response.status === 200) {
         localStorage.setItem('authToken', response.data.token);
-       */ navigate('/dashboard');/*
+        navigate('/dashboard');
       }
     } catch (error) {
       console.error('Login error:', error.response || error.message);
@@ -55,7 +55,7 @@ export default function LoginPage() {
       } else {
         setError('An error occurred. Please try again.');
       }
-    }*/
+    }
   };
 
   return (

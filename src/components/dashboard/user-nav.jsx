@@ -1,7 +1,6 @@
 "use client"
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react'
-import axios from 'axios'
 import {  CreditCard, LogOut, Settings, User } from 'lucide-react'
 
 import {
@@ -45,13 +44,8 @@ export function UserNav() {
   }, [navigate])
 
   const handleLogout = async () => {
-    const token = localStorage.getItem('authToken')
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/logout`, {}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+     
       localStorage.removeItem('authToken')
       navigate('/login')
     } catch (error) {
