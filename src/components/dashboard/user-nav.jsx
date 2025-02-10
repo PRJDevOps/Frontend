@@ -1,6 +1,7 @@
 "use client"
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react' // Add useState
+import axios from 'axios' // Add axios import
 import {  CreditCard, LogOut, Settings, User } from 'lucide-react'
 
 import {
@@ -18,7 +19,41 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function UserNav() {
   const navigate = useNavigate()
+  const [userData, setUserData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        setError('No authentication token found');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.data.success) {
+          setUserData(response.data.data);
+        } else {
+          setError('Failed to fetch user data');
+        }
+      } catch (error) {
+        console.error('Error fetching user:', error);
+        setError('Failed to fetch user');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.shiftKey && event.metaKey) {
@@ -53,22 +88,32 @@ export function UserNav() {
     }
   }
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  const userInitials = userData?.username ? userData.username.substring(0, 2).toUpperCase() : 'UN';
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src="/avatars/01.png" alt="@shadcn" />
-            <AvatarFallback>SC</AvatarFallback>
+            <AvatarImage src="/avatars/01.png" alt={userData?.username} />
+            <AvatarFallback>{userInitials}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">shadcn</p>
+            <p className="text-sm font-medium leading-none">{userData?.username}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              m@example.com
+              {userData?.email}
             </p>
           </div>
         </DropdownMenuLabel>
