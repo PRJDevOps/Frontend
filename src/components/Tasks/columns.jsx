@@ -4,6 +4,13 @@ import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import { MoreVertical, AlertCircle, FileText, Wrench } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import { Eye, Pencil, Trash2 } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export const columns = [
   {
@@ -120,9 +127,27 @@ export const columns = [
     id: "actions",
     cell: () => {
       return (
-        <Button variant="ghost" size="icon">
-          <MoreVertical className="h-4 w-4" />
-        </Button>
+        <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <MoreVertical className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent  align="end">
+          <DropdownMenuItem className="text-gray-600 dark:text-gray-400">
+            <Eye className="mr-2 h-4 w-4" />
+            View
+          </DropdownMenuItem>
+          <DropdownMenuItem className="text-gray-600 dark:text-gray-400">
+            <Pencil className="mr-2 h-4 w-4" />
+            Edit
+          </DropdownMenuItem>
+          <DropdownMenuItem className="text-red-600">
+            <Trash2 className="mr-2 h-4 w-4" />
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
       )
     },
   },

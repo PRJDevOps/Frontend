@@ -1,6 +1,5 @@
 "use client"
-import {  UserPlus } from 'lucide-react'
-import { Button } from "@/components/ui/button"
+
 import { columns } from "@/components/Tasks/columns"
 import { DataTable } from "@/components/Tasks/data-table"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -9,6 +8,7 @@ import Header from "@/layout/header"
 import { AppSidebar } from "@/layout/sidebar"
 import { useEffect, useState } from 'react' // Add these imports
 import axios from 'axios'
+import {AddTasksSheet} from "@/components/Tasks/add-tasks"
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([])
@@ -63,10 +63,7 @@ export default function Tasks() {
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button className="gap-2">
-                    Add task
-                    <UserPlus className="h-4 w-4" />
-                  </Button>
+                <AddTasksSheet />
                 </div>
               </div>
 
