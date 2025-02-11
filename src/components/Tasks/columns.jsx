@@ -71,9 +71,9 @@ export const columns = [
         switch (status) {
           case "Done":
             return "bg-emerald-500/15 border border-emerald-500 text-emerald-500"
-          case "In Progress":
+          case "IN PROGRESS":
             return "bg-blue-500/15 border border-blue-500 text-blue-500"
-          case "Todo":
+          case "TODO":
             return "bg-yellow-500/15 border border-yellow-500 text-yellow-500"
           case "Backlog":
             return "bg-gray-500/15 border border-gray-500 text-gray-500"
@@ -98,11 +98,11 @@ export const columns = [
       const priority = row.getValue("priority")
       const getPriorityColor = (priority) => {
         switch (priority) {
-          case "High":
+          case "HIGH":
             return "text-red-500"
-          case "Medium":
+          case "MEDIUM":
             return "text-yellow-500"
-          case "Low":
+          case "LOW":
             return "text-green-500"
           default:
             return "text-gray-500"

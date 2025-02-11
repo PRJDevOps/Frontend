@@ -1,7 +1,7 @@
-import  { useState, useEffect } from "react";
+import  { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Github, Mail, Moon, Eye, EyeOff,Command } from 'lucide-react';
+import { Github, Mail, Eye, EyeOff,Command } from 'lucide-react';
 
 import { cn } from "../lib/utils";
 import { Button } from "../components/ui/button";
@@ -21,16 +21,6 @@ export default function LoginPage() {
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
-  useEffect(() => {
-    const fetchCsrfToken = async () => {
-      try {
-        await axios.get(`${import.meta.env.VITE_API_URL}/sanctum/csrf-cookie`);
-      } catch (error) {
-        console.error('Error fetching CSRF token:', error);
-      }
-    };
-    fetchCsrfToken();
-  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
