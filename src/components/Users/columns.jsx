@@ -79,7 +79,7 @@ export const columns = [
       const role = row.getValue("role")
       return (
         <div className="flex items-center gap-2">
-          {role === "Manager" && <Users className="h-4 w-4" />}
+          {role === "user" && <Users className="h-4 w-4" />}
           {role}
         </div>
       )

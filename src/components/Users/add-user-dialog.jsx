@@ -52,12 +52,8 @@ export function AddUserDialog({ open, onOpenChange }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
       username: "",
       email: "",
-      phoneNumber: "",
-      role: undefined,
       password: "",
       confirmPassword: "",
     },
@@ -86,38 +82,8 @@ export function AddUserDialog({ open, onOpenChange }) {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="px-6 pb-6">
             <div className="space-y-3 py-2">
-              <FormField
-                control={form.control}
-                name="firstName"
-                render={({ field }) => (
-                  <FormItem className="grid grid-cols-[120px_1fr] items-center gap-2">
-                    <FormLabel className="text-sm text-right">First Name</FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder="John" 
-                        {...field}
-                        className=" border h-9 border-gray-200 dark:border-gray-800 text-sm  placeholder:text-gray-500" 
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem className="grid grid-cols-[120px_1fr] items-center gap-2">
-                    <FormLabel className="text-sm text-right">Last Name</FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder="Doe" 
-                        {...field}
-                        className=" border border-gray-200 dark:border-gray-800 h-9 text-sm  placeholder:text-gray-500" 
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
+          
+              
               <FormField
                 control={form.control}
                 name="username"
@@ -151,44 +117,7 @@ export function AddUserDialog({ open, onOpenChange }) {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="phoneNumber"
-                render={({ field }) => (
-                  <FormItem className="grid grid-cols-[120px_1fr] items-center gap-2">
-                    <FormLabel className=" text-sm text-right">Phone Number</FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder="+123456789" 
-                        {...field}
-                        className=" border border-gray-200 dark:border-gray-800 h-9 text-sm  placeholder:text-gray-500" 
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem className="grid grid-cols-[120px_1fr] items-center gap-2">
-                    <FormLabel className=" text-sm text-right">Role</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger className=" border border-gray-200 dark:border-gray-800  h-9 text-sm ">
-                          <SelectValue placeholder="Select a role" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent className="border-gray-200 dark:border-gray-800">
-                        <SelectItem value="Manager">Manager</SelectItem>
-                        <SelectItem value="Superadmin">Superadmin</SelectItem>
-                        <SelectItem value="Cashier">Cashier</SelectItem>
-                        <SelectItem value="Admin">Admin</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />
+      
               <FormField
                 control={form.control}
                 name="password"
