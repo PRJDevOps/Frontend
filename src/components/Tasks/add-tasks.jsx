@@ -21,8 +21,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useToast } from "@/components/ui/use-toast" // Add this import
 
 export function AddTasksSheet() {
+  const { toast } = useToast()
   const [open, setOpen] = useState(false)
   const [formData, setFormData] = useState({
     title: "",
@@ -61,9 +63,33 @@ export function AddTasksSheet() {
           'Authorization': `Bearer ${token}`
         }
       })
+      
+      toast({
+        title: "Success!",
+        description: "Task created successfully.",
+        variant: "default",
+      })
+      
       setOpen(false)
+      // Reset form
+      setFormData({
+        title: "",
+        type: "",
+        task: "",
+        status: "TODO",
+        priority: "LOW",
+        team: ""
+      })
+      
+      // Optional: Refresh tasks list
+      window.location.reload()
     } catch (error) {
       console.error('Error creating task:', error)
+      toast({
+        title: "Error!",
+        description: error.response?.data?.message || "Failed to create task. Please try again.",
+        variant: "destructive",
+      })
     }
   }
 

@@ -9,6 +9,7 @@ import { AppSidebar } from "@/layout/sidebar"
 import { useEffect, useState } from 'react' // Add these imports
 import axios from 'axios'
 import {AddTasksSheet} from "@/components/Tasks/add-tasks"
+import { Toaster } from "@/components/ui/toaster" // Add this import
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([])
@@ -77,6 +78,7 @@ export default function Tasks() {
             </div>
           </div>
         </div>
+        <Toaster />
       </SidebarProvider>
     </ThemeProvider>
   )
