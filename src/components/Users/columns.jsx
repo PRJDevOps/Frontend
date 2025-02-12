@@ -21,8 +21,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import axios from 'axios'
+// Add this import at the top
+import { EditUserDialog } from "./edit-user-dialog"
+import { useState } from "react"
 
-export const columns = [
+export const columns = ({ setEditUserOpen, setSelectedUserId }) => [
   {
     accessorKey: "id",
     header: "ID",
@@ -89,10 +92,15 @@ export const columns = [
   {
     id: "actions",
     cell: ({ row }) => {
+      const handleEdit = () => {
+        setSelectedUserId(row.original.id)
+        setEditUserOpen(true)
+      }
+
       const handleDelete = async () => {
         try {
           const token = localStorage.getItem('authToken')
-          const userId = row.original.id // Change this line
+          const userId = row.original.id
           
           await axios.delete(`${import.meta.env.VITE_API_URL}/api/auth/users/${userId}`, {
             headers: {
@@ -113,8 +121,11 @@ export const columns = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem className="text-gray-600 dark:text-gray-400">
-              <Pencil  className="mr-2 h-4 w-4" />
+            <DropdownMenuItem 
+              className="text-gray-600 dark:text-gray-400"
+              onClick={handleEdit}
+            >
+              <Pencil className="mr-2 h-4 w-4" />
               Edit
             </DropdownMenuItem>
             <AlertDialog>

@@ -12,9 +12,13 @@ import Header from "@/layout/header"
 import { AppSidebar } from "@/layout/sidebar"
 import axios from "axios"
 import { Toaster } from "@/components/ui/toaster" // Add this import
+// Add this import along with your other imports
+import { EditUserDialog } from "@/components/Users/edit-user-dialog"
 
 export default function UserList() {
   const [addUserOpen, setAddUserOpen] = useState(false)
+  const [editUserOpen, setEditUserOpen] = useState(false)  // Add this
+  const [selectedUserId, setSelectedUserId] = useState(null)  // Add this
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -94,13 +98,24 @@ export default function UserList() {
               ) : error ? (
                 <div>{error}</div>
               ) : (
-                <DataTable columns={columns} data={users} />
+                <DataTable 
+                  columns={columns({ 
+                    setEditUserOpen, 
+                    setSelectedUserId 
+                  })} 
+                  data={users} 
+                />
               )}
               <AddUserDialog open={addUserOpen} onOpenChange={setAddUserOpen} />
+              <EditUserDialog 
+                open={editUserOpen} 
+                onOpenChange={setEditUserOpen}
+                userId={selectedUserId}
+              />
             </div>
           </div>
         </div>
-        <Toaster /> {/* Add this line */}
+        <Toaster />
       </SidebarProvider>
     </ThemeProvider>
   )
