@@ -11,6 +11,7 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import Header from "@/layout/header"
 import { AppSidebar } from "@/layout/sidebar"
 import axios from "axios"
+import { Toaster } from "@/components/ui/toaster" // Add this import
 
 export default function UserList() {
   const [addUserOpen, setAddUserOpen] = useState(false)
@@ -99,6 +100,7 @@ export default function UserList() {
             </div>
           </div>
         </div>
+        <Toaster /> {/* Add this line */}
       </SidebarProvider>
     </ThemeProvider>
   )

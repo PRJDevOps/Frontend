@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Eye, EyeOff} from 'lucide-react'
+import { useToast } from "@/components/ui/use-toast" // Add this import
+import axios from "axios" // Add this import if not already present
 
 import { Button } from "@/components/ui/button"
 import {
@@ -95,10 +97,6 @@ export function AddUserDialog({ open, onOpenChange }) {
     setIsPasswordFilled(password.length >= 1)
   }, [form.watch("password")])
 
-  function onSubmit(values) {
-    console.log(values)
-    onOpenChange(false)
-  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
