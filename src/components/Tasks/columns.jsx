@@ -90,7 +90,7 @@ export const columns = [
         switch (status) {
           case "Done":
             return "bg-emerald-500/15 border border-emerald-500 text-emerald-500"
-          case "IN PROGRESS":
+          case "IN_PROGRESS":
             return "bg-blue-500/15 border border-blue-500 text-blue-500"
           case "TODO":
             return "bg-yellow-500/15 border border-yellow-500 text-yellow-500"

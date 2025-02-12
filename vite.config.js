@@ -14,7 +14,7 @@ export default defineConfig({
   },
   server: {
     host: true, // Allows access via IP address on your local network
-    port: 3000, // Optional: Custom port for the dev server
+    port: 3001, // Optional: Custom port for the dev server
   },
   build: {
     outDir: 'dist', // Ensures the output directory is consistent

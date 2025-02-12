@@ -146,7 +146,7 @@ export function AddTasksSheet() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="TODO">Todo</SelectItem>
-                <SelectItem value="IN PROGRESS">In Progress</SelectItem>
+                <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
                 <SelectItem value="DONE">Done</SelectItem>
                 <SelectItem value="Canceled">Canceled</SelectItem>
                 <SelectItem value="Backlog">Backlog</SelectItem>

@@ -31,12 +31,8 @@ import {
 } from "@/components/ui/select"
 
 const formSchema = z.object({
-  firstName: z.string().min(2, "First name must be at least 2 characters"),
-  lastName: z.string().min(2, "Last name must be at least 2 characters"),
   username: z.string().min(3, "Username must be at least 3 characters"),
   email: z.string().email("Invalid email address"),
-  phoneNumber: z.string().min(10, "Phone number must be at least 10 characters"),
-  role: z.enum(["Manager", "Superadmin", "Cashier", "Admin"]),
   password: z.string().min(8, "Password must be at least 8 characters"),
   confirmPassword: z.string()
 }).refine((data) => data.password === data.confirmPassword, {
@@ -45,6 +41,7 @@ const formSchema = z.object({
 })
 
 export function AddUserDialog({ open, onOpenChange }) {
+  const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isPasswordFilled, setIsPasswordFilled] = useState(false)
@@ -58,6 +55,40 @@ export function AddUserDialog({ open, onOpenChange }) {
       confirmPassword: "",
     },
   })
+
+  async function onSubmit(values) {
+    try {
+      const token = localStorage.getItem('authToken')
+      
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+
+      toast({
+        title: "Success!",
+        description: "User created successfully.",
+        variant: "default",
+      })
+
+      form.reset()
+      onOpenChange(false)
+      window.location.reload()
+      
+    } catch (error) {
+      console.error('Error creating user:', error)
+      toast({
+        title: "Error!",
+        description: error.response?.data?.message || "Failed to create user. Please try again.",
+        variant: "destructive",
+      })
+    }
+  }
 
   useEffect(() => {
     const password = form.watch("password")
