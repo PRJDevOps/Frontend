@@ -30,6 +30,10 @@ export default function LoginPage() {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         email,
         password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
       });
 
       if (response.status === 200) {
