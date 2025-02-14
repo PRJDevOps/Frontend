@@ -8,6 +8,7 @@ import './index.css';
 import UserList from './pages/Users';
 import NotFoundPage from './pages/404';
 import Tasks from './pages/Tasks';
+import Account from './pages/Account';
 
 const App = () => {
   return (
@@ -16,7 +17,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={
-          <PrivateRoute isAdminRoute={false}>
+          <PrivateRoute isAdminRoute={true}>
               <Dashboard />
             </PrivateRoute>
           }/>
@@ -33,6 +34,11 @@ const App = () => {
            <Route path="/tasks" element={
           <PrivateRoute isAdminRoute={true}>
               <Tasks />
+            </PrivateRoute>
+          } />
+            <Route path="/account" element={
+          <PrivateRoute isAdminRoute={true}>
+              <Account />
             </PrivateRoute>
           } />
       <Route path="*" element={<NotFoundPage />} />
