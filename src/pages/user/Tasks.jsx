@@ -1,6 +1,6 @@
 "use client"
 
-import { columns } from "@/components/Tasks/columns"
+import { columns } from "@/components/Tasks/user/columns"
 import { DataTable } from "@/components/Tasks/data-table"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SidebarProvider } from "@/components/ui/sidebar"
@@ -8,7 +8,6 @@ import Header from "@/layout/header"
 import { AppSidebar } from "@/layout/user/sidebar"
 import { useEffect, useState } from 'react' // Add these imports
 import axios from 'axios'
-import {AddTasksSheet} from "@/components/Tasks/add-tasks"
 import { Toaster } from "@/components/ui/toaster" // Add this import
 
 export default function Tasks() {
@@ -62,9 +61,6 @@ export default function Tasks() {
                   <p className="text-muted-foreground">
                     Here's a list of your tasks for this month!
                   </p>
-                </div>
-                <div className="flex gap-2">
-                <AddTasksSheet />
                 </div>
               </div>
 
