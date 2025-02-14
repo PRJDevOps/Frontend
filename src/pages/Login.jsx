@@ -10,6 +10,7 @@ import { Label } from "../components/ui/label";
 import { Checkbox } from "../components/ui/checkbox";
 import { ThemeToggle } from "@/components/ThemeToggle"
 import { ThemeProvider } from "@/components/theme-provider"
+import Loading from '@/layout/loading';
 
 
 export default function LoginPage() {
@@ -17,14 +18,15 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
@@ -38,7 +40,39 @@ export default function LoginPage() {
 
       if (response.status === 200) {
         localStorage.setItem('authToken', response.data.token);
-        navigate('/dashboard');
+        
+        // Check user status and navigate accordingly
+        const token = response.data.token;
+        const userResponse = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const userData = userResponse.data.data;
+
+        if (userData.role === 'admin') {
+          navigate('/dashboard');
+        } else if (userData.role === 'user') {
+          try {
+            const accountResponse = await axios.get(
+              `${import.meta.env.VITE_API_URL}/api/accounts/user/${userData.id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              }
+            );
+
+            if (accountResponse.data && accountResponse.data.success) {
+              navigate('/user/tasks');
+            } else {
+              navigate('/user/add-account');
+            }
+          } catch (error) {
+            navigate('/add-account');
+          }
+        }
       }
     } catch (error) {
       console.error('Login error:', error.response || error.message);
@@ -49,8 +83,14 @@ export default function LoginPage() {
       } else {
         setError('An error occurred. Please try again.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <ThemeProvider defaultTheme="dark">

@@ -21,15 +21,15 @@ return (
                 <SidebarMenu>
                     <SidebarMenuItem>
                     <SidebarMenuButton asChild >
-                        <Link to="/dashboard" className="hover:bg-zinc-300 dark:hover:bg-zinc-800">
+                        <Link to="/" className="hover:bg-zinc-300 dark:hover:bg-zinc-800">
                         <BarChart3 className="size-4" />
-                        <span>Dashboard</span>
+                        <span>/</span>
                         </Link>
                     </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                        <a href="/tasks" className="hover:bg-zinc-300 dark:hover:bg-zinc-800">
+                        <a href="/user/tasks" className="hover:bg-zinc-300 dark:hover:bg-zinc-800">
                         <CheckSquare className="size-4" />
                         <span>Tasks</span>
                         </a>
@@ -37,7 +37,7 @@ return (
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                        <Link to="/users" className="hover:bg-zinc-300 dark:hover:bg-zinc-800">
+                        <Link to="/user/users" className="hover:bg-zinc-300 dark:hover:bg-zinc-800">
                         <Users className="size-4" />
                         <span>Users</span>
                         </Link>
