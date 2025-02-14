@@ -14,100 +14,136 @@ import {
 } from "@/components/ui/select"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SidebarProvider } from "@/components/ui/sidebar"
+import { useNavigate } from "react-router-dom"  // Add this import at the top
+import { useState, useEffect } from "react"  // Add this import
+import axios from "axios"  // Add this import
 
 export default function SettingsPage() {
+  const navigate = useNavigate()
+  const [userData, setUserData] = useState({
+    username: '',
+    email: '',
+    role: ''
+  })
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem('authToken')
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        
+        if (response.data.success) {
+          setUserData({
+            username: response.data.data.username,
+            email: response.data.data.email,
+            role: response.data.data.role
+          })
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error)
+      }
+    }
+
+    fetchUserData()
+  }, [])
+
   return (
     <ThemeProvider defaultTheme="dark">
-    <SidebarProvider>
-      <div className="flex min-h-screen dark:bg-background">
-      <AppSidebar />
+      <SidebarProvider>
+        <div className="flex min-h-screen dark:bg-background">
+        <AppSidebar />
 
-        {/* Main Content */}
-        <div className="flex-1 ">
-          <Header />
+          {/* Main Content */}
+          <div className="flex-1 ">
+            <Header />
 
-          <main className="p-6">
-            <div className=" mx-auto">
-              <h1 className="text-3xl font-bold mb-2">Settings</h1>
-              <p className="text-muted-foreground mb-6 pb-3 border-b">
-                Manage your account settings and set e-mail preferences.
-              </p>
+            <main className="p-6">
+              <div className=" mx-auto">
+                <h1 className="text-3xl font-bold mb-2">Settings</h1>
+                <p className="text-muted-foreground mb-6 pb-3 border-b">
+                  View your Profile settings and set e-mail preferences.
+                </p>
 
-              <div className="flex gap-8">
-                <div className="w-48 flex flex-col gap-1">
-                  <Button variant="ghost" className="justify-start hover:text-line font-medium">
-                  <User /> 
-                  Profile
-                  </Button>
-                  <Button variant="ghost" className="justify-start">
-                  <KeyRound />
-                  Account
-                  </Button>
-                  <Button variant="ghost" className="justify-start">
-                  <LayoutPanelLeft />
-                  Appearance
-                  </Button>
-                  <Button variant="ghost" className="justify-start">
-                  <Bell />
-                   Notifications
-                  </Button>
-                  <Button variant="ghost" className="justify-start">
-                  <MonitorDot />
-                   Display
-                  </Button>
-                </div>
+                <div className="flex gap-8">
+                  <div className="w-48 flex flex-col gap-1 ">
+                    <Button 
+                      variant="ghost" 
+                      className="justify-start hover:text-line font-medium"
+                      onClick={() => navigate('/profile')}
+                    >
+                      <User /> 
+                      Profile
+                    </Button>
+                    <Button 
+                      variant="ghost" 
+                      className="justify-start"
+                      onClick={() => navigate('/account')}
+                    >
+                      <KeyRound />
+                      Account
+                    </Button>
+                  </div>
 
-                <div className="flex-1">
-                  <div className="space-y-6">
-                    <div>
-                      <h2 className="text-lg font-semibold mb-2">Profile</h2>
-                      <p className="text-sm text-muted-foreground">
-                        This is how others will see you on the site.
-                      </p>
-                    </div>
-
-                    <div className="space-y-4">
+                  <div className="flex-1">
+                    <div className="space-y-6">
                       <div>
-                        <label className="text-sm font-medium">Username</label>
-                        <Input defaultValue="shadcn" className="mt-2" />
-                        <p className="text-sm text-muted-foreground mt-2">
-                          This is your public display name. It can be your real name or a pseudonym. You can only change this once every 30 days.
+                        <h2 className="text-lg font-semibold mb-2">Profile</h2>
+                        <p className="text-sm text-muted-foreground">
+                          This is how others will see you on the site.
                         </p>
                       </div>
 
-                      <div>
-                        <label className="text-sm font-medium">Email</label>
-                        <Select defaultValue="select">
-                          <SelectTrigger className="mt-2">
-                            <SelectValue placeholder="Select a verified email to display" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="select">Select a verified email to display</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <p className="text-sm text-muted-foreground mt-2">
-                          You can manage verified email addresses in your email settings.
-                        </p>
-                      </div>
+                      <div className="space-y-4">
+                        <div>
+                          <label className="text-sm font-medium">Username</label>
+                          <Input 
+                            value={userData.username} 
+                            disabled 
+                            readOnly 
+                            className="mt-2" 
+                          />
+                          <p className="text-sm text-muted-foreground mt-2">
+                            This is your public display name. It can be your real name or a pseudonym.
+                          </p>
+                        </div>
 
-                      <div>
-                        <label className="text-sm font-medium">Bio</label>
-                        <Textarea 
-                          defaultValue="I own a computer."
-                          className="mt-2"
-                        />
-                        <p className="text-sm text-muted-foreground mt-2">
-                          You can @mention other users and organizations to link to them.
-                        </p>
+                        <div>
+                          <label className="text-sm font-medium">Email</label>
+                          <Input 
+                            value={userData.email}
+                            disabled 
+                            readOnly
+                            className="mt-2" 
+                          />
+                          <p className="text-sm text-muted-foreground mt-2">
+                            You can manage verified email addresses in your email settings.
+                          </p>
+                        </div>
+
+                        <div>
+                          <label className="text-sm font-medium">Role</label>
+                          <Input 
+                            value={userData.role}
+                            className="mt-2 w-32" 
+                            disabled 
+                            readOnly
+                          />
+                          <p className="text-sm text-muted-foreground mt-2">
+                            This displays your role in the organization. Only administrators can modify roles.
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </main>
+            </main>
+          </div>
         </div>
-      </div>
       </SidebarProvider>
     </ThemeProvider>
   )

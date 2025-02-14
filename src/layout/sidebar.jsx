@@ -1,4 +1,4 @@
-import { AudioWaveform,SunMoon, Command,Wrench,Settings,UserPen, GalleryVerticalEnd, Bell as NotificationIcon } from 'lucide-react'
+import { AudioWaveform, Command,Wrench,Settings,UserPen, GalleryVerticalEnd } from 'lucide-react'
 import { useEffect, useState } from "react"; // Import useState and useEffect
 import axios from "axios"; // Ensure axios is imported
 import { NavMain } from "@/components/sidebar/nav-main"
@@ -40,14 +40,12 @@ const data = {
 
     {
       title: "Settings",
-      url: "#",
+      url: "",
       icon: Settings,
       isActive: false,
       items: [
         { title: "Profile", url: "profile" ,icon: UserPen},
-        { title: "Account", url: "#" ,icon: Wrench},
-        { title: "Appearance", url: "#" ,icon: SunMoon },
-        { title: "Notification", url: "#" ,icon: NotificationIcon}
+        { title: "Account", url: "account" ,icon: Wrench},
       ],
     },
   ]

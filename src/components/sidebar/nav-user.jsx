@@ -4,7 +4,7 @@ import {
   BadgeCheck,
   Bell,
   ChevronsUpDown,
-  CreditCard,
+  UserPen,
   LogOut,
   Sparkles,
 } from "lucide-react"
@@ -99,23 +99,12 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
+              <UserPen />
+                Profile
               </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
+                <DropdownMenuItem>
                 <BadgeCheck />
                 Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

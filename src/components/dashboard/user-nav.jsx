@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react' // Add useState
 import axios from 'axios' // Add axios import
-import {  CreditCard, LogOut, Settings, User } from 'lucide-react'
+import {  BadgeCheck, LogOut, LayoutDashboard, User } from 'lucide-react'
 
 import {
   DropdownMenu,
@@ -62,10 +62,10 @@ export function UserNav() {
             navigate('/profile')
             break
           case 'b':
-            navigate('/billing')
+            navigate('/account')
             break
-          case 's':
-            navigate('/settings')
+          case 'd':
+            navigate('/dashboard')
             break
           case 'z':
             handleLogout()
@@ -124,15 +124,15 @@ export function UserNav() {
             <span>Profile</span>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => navigate('/billing')}>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <span>Billing</span>
+          <DropdownMenuItem onClick={() => navigate('/account')}>
+            <BadgeCheck className="mr-2 h-4 w-4" />
+            <span>Account</span>
             <DropdownMenuShortcut>⇧⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => navigate('/settings')}>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-            <DropdownMenuShortcut>⇧⌘S</DropdownMenuShortcut>
+          <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+            <LayoutDashboard  className="mr-2 h-4 w-4" />
+            <span>Dashboard</span>
+            <DropdownMenuShortcut>⇧⌘D</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
