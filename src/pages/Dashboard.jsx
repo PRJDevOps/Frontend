@@ -10,8 +10,46 @@ import { ThemeToggle } from "@/components/ThemeToggle"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { UserNav } from "@/components/dashboard/user-nav"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { ListTodo, CheckCircle, Clock } from 'lucide-react'
 
 function Dashboard() {
+  const [stats, setStats] = useState({
+    totalUsers: 0,
+    totalTasks: 0,
+    completedTasks: 0,
+    pendingTasks: 0
+  })
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const token = localStorage.getItem('authToken')
+        const headers = { Authorization: `Bearer ${token}` }
+
+        const [usersResponse, tasksResponse] = await Promise.all([
+          axios.get(`${import.meta.env.VITE_API_URL}/api/auth/users`, { headers }),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/tasks`, { headers })
+        ])
+
+        const users = usersResponse.data.data
+        const tasks = tasksResponse.data.data
+        
+        setStats({
+          totalUsers: users.length,
+          totalTasks: tasks.length,
+          completedTasks: tasks.filter(task => task.status === "Done").length,
+          pendingTasks: tasks.filter(task => task.status === "TODO" || task.status === "IN_PROGRESS").length
+        })
+      } catch (error) {
+        console.error('Error fetching dashboard stats:', error)
+      }
+    }
+
+    fetchStats()
+  }, [])
+
   return (
     <ThemeProvider defaultTheme="dark">
       <SidebarProvider>
@@ -34,65 +72,61 @@ function Dashboard() {
                   <h2 className="text-4xl font-bold tracking-tight">Dashboard</h2>
                 </div>
                 <Tabs defaultValue="overview" className="space-y-4">
-                  <TabsList>
-                    <TabsTrigger value="overview">Overview</TabsTrigger>
-                    <TabsTrigger value="analytics">Analytics</TabsTrigger>
-                    <TabsTrigger value="reports">Reports</TabsTrigger>
-                    <TabsTrigger value="notifications">Notifications</TabsTrigger>
-                  </TabsList>
                   <TabsContent value="overview" className="space-y-4">
                     <div className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-4">
                       <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                           <CardTitle className="text-md font-medium">
-                            Total Revenue
-                          </CardTitle>
-                          <Euro className="text-blue-300 dark:text-blue-900" />
-                        </CardHeader>
-                        <CardContent>
-                          <div className="text-3xl font-bold">$45,231.89</div>
-                          <p className="text-sm text-red-500 text-muted-foreground">
-                            -20.1% from last month
-                          </p>
-                        </CardContent>
-                      </Card>
-                      <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                          <CardTitle className="text-md font-medium">
-                            Subscriptions
+                            Total Users
                           </CardTitle>
                           <Users className="text-blue-300 dark:text-blue-900" />
                         </CardHeader>
                         <CardContent>
-                          <div className="text-3xl font-bold">+2,350</div>
-                          <p className="text-sm text-green-500/90">
-                            +180.1% from last month
-                          </p>
-                        </CardContent>
-                      </Card>
-                      <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                          <CardTitle className="text-md font-medium">Sales</CardTitle>
-                          <CreditCard className="text-blue-300 dark:text-blue-900" />
-                        </CardHeader>
-                        <CardContent>
-                          <div className="text-3xl font-bold">+12,234</div>
-                          <p className="text-sm text-green-500/90">
-                            +19% from last month
+                          <div className="text-3xl font-bold">{stats.totalUsers}</div>
+                          <p className="text-sm text-muted-foreground">
+                            Active team members
                           </p>
                         </CardContent>
                       </Card>
                       <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                           <CardTitle className="text-md font-medium">
-                            Active Now
+                            Total Tasks
                           </CardTitle>
-                          <Activity className="text-blue-300 dark:text-blue-900" />
+                          <ListTodo className="text-blue-300 dark:text-blue-900" />
                         </CardHeader>
                         <CardContent>
-                          <div className="text-3xl font-bold">+573</div>
+                          <div className="text-3xl font-bold">{stats.totalTasks}</div>
+                          <p className="text-sm text-muted-foreground">
+                            All assigned tasks
+                          </p>
+                        </CardContent>
+                      </Card>
+                      <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                          <CardTitle className="text-md font-medium">
+                            Completed Tasks
+                          </CardTitle>
+                          <CheckCircle className="text-blue-300 dark:text-blue-900" />
+                        </CardHeader>
+                        <CardContent>
+                          <div className="text-3xl font-bold">{stats.completedTasks}</div>
                           <p className="text-sm text-green-500/90">
-                            +201 since last hour
+                            Successfully completed
+                          </p>
+                        </CardContent>
+                      </Card>
+                      <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                          <CardTitle className="text-md font-medium">
+                            Pending Tasks
+                          </CardTitle>
+                          <Clock className="text-blue-300 dark:text-blue-900" />
+                        </CardHeader>
+                        <CardContent>
+                          <div className="text-3xl font-bold">{stats.pendingTasks}</div>
+                          <p className="text-sm text-yellow-500/90">
+                            In progress or todo
                           </p>
                         </CardContent>
                       </Card>
@@ -100,7 +134,7 @@ function Dashboard() {
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                       <Card className="col-span-4">
                         <CardHeader>
-                          <CardTitle>Overview</CardTitle>
+                          <CardTitle>Task Statistics</CardTitle>
                         </CardHeader>
                         <CardContent className="pl-2">
                           <Overview />
@@ -108,9 +142,9 @@ function Dashboard() {
                       </Card>
                       <Card className="col-span-3">
                         <CardHeader>
-                          <CardTitle>Recent Sales</CardTitle>
+                          <CardTitle>Recent Tasks</CardTitle>
                           <div className="text-md text-muted-foreground">
-                            You made 265 sales this month.
+                            Latest {stats.totalTasks} tasks created
                           </div>
                         </CardHeader>
                         <CardContent>
