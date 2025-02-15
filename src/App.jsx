@@ -9,7 +9,7 @@ import UserList from './pages/Users';
 import NotFoundPage from './pages/404';
 import Tasks from './pages/Tasks';
 import Account from './pages/Account';
-
+import Attendance from './pages/Attendance';
 import UProfile from './pages/user/Profile';
 import User from './pages/user/Users';
 import UTasks from './pages/user/Tasks';
@@ -48,6 +48,13 @@ const App = () => {
               <Account />
             </PrivateRoute>
           } />
+           <Route path="/attendance" element={
+          <PrivateRoute isAdminRoute={true}>
+              <Attendance />
+            </PrivateRoute>
+          } /> 
+
+        {/* User Routes */}
         <Route path="/user/add-account" element={
           <UserRoute>
             <AddAccount />
@@ -73,6 +80,7 @@ const App = () => {
             <UAccount />
           </UserRoute>
         } />
+        {/* 404 Routes */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
