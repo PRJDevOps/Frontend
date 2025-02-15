@@ -24,6 +24,55 @@ import {
 } from "@/components/ui/alert-dialog"
 import axios from 'axios'
 
+// Add these imports at the top
+import { useState } from "react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Card, CardContent } from "@/components/ui/card"
+
+// Move helper functions outside of columns
+const getTypeIcon = (type) => {
+  switch (type) {
+    case "Bug":
+      return <AlertCircle className="h-4 w-4 text-red-500" />
+    case "Feature":
+      return <Wrench className="h-4 w-4 text-blue-500" />
+    case "Documentation":
+      return <FileText className="h-4 w-4 text-yellow-500" />
+    default:
+      return null
+  }
+}
+
+const getStatusColor = (status) => {
+  switch (status) {
+    case "Done":
+      return "bg-emerald-500/15 border border-emerald-500 text-emerald-500"
+    case "IN_PROGRESS":
+      return "bg-blue-500/15 border border-blue-500 text-blue-500"
+    case "TODO":
+      return "bg-yellow-500/15 border border-yellow-500 text-yellow-500"
+    case "Backlog":
+      return "bg-gray-500/15 border border-gray-500 text-gray-500"
+    case "Canceled":
+      return "bg-red-500/15 border border-red-500 text-red-500"
+    default:
+      return "bg-gray-500/15 border border-gray-300 text-gray-300"
+  }
+}
+
+const getPriorityColor = (priority) => {
+  switch (priority) {
+    case "HIGH":
+      return "text-red-500"
+    case "MEDIUM":
+      return "text-yellow-500"
+    case "LOW":
+      return "text-green-500"
+    default:
+      return "text-gray-500"
+  }
+}
+
 export const columns = [
   {
     id: "select",
@@ -138,6 +187,26 @@ export const columns = [
   {
     id: "actions",
     cell: ({ row }) => {
+      const [isViewOpen, setIsViewOpen] = useState(false)
+      const [taskDetails, setTaskDetails] = useState(null)
+
+      const handleView = async () => {
+        try {
+          const token = localStorage.getItem('authToken')
+          const taskId = row.getValue("id")
+          
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks/${taskId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          setTaskDetails(response.data.data)
+          setIsViewOpen(true)
+        } catch (error) {
+          console.error('Error fetching task details:', error)
+        }
+      }
+
       const handleDelete = async () => {
         try {
           const token = localStorage.getItem('authToken')
@@ -155,41 +224,109 @@ export const columns = [
       }
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <MoreVertical className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem className="text-gray-600 dark:text-gray-400">
-              <Eye className="mr-2 h-4 w-4" />
-              View
-            </DropdownMenuItem>
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <DropdownMenuItem className="text-red-600" onSelect={(e) => e.preventDefault()}>
-                  <Trash2 className="mr-2 h-4 w-4" />
-                  Delete
-                </DropdownMenuItem>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete the task.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDelete} className="bg-red-600 dark:text-white hover:bg-red-700">
+        <>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <MoreVertical className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem 
+                className="text-gray-600 dark:text-gray-400"
+                onClick={handleView}
+              >
+                <Eye className="mr-2 h-4 w-4" />
+                View
+              </DropdownMenuItem>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <DropdownMenuItem className="text-red-600" onSelect={(e) => e.preventDefault()}>
+                    <Trash2 className="mr-2 h-4 w-4" />
                     Delete
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </DropdownMenuContent>
-        </DropdownMenu>
+                  </DropdownMenuItem>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete the task.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete} className="bg-red-600 dark:text-white hover:bg-red-700">
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {taskDetails && (
+            <Dialog open={isViewOpen} onOpenChange={setIsViewOpen}>
+              <DialogContent className="sm:max-w-[600px] w-full">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl font-bold">{taskDetails.title}</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <Card>
+                    <CardContent className="pt-4">
+                      <div className="grid grid-cols-3 gap-4 text-sm">
+                        <div>
+                          <p className="font-semibold mb-2">Type:</p>
+                          <div className="flex items-center gap-2">
+                            {getTypeIcon(taskDetails.type)}
+                            {taskDetails.type}
+                          </div>
+                        </div>
+                        <div>
+                          <p className="font-semibold mb-2">Priority:</p>
+                          <p className={`font-medium ${getPriorityColor(taskDetails.priority)}`}>
+                            {taskDetails.priority}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="font-semibold mb-2">Team:</p>
+                          <p>{taskDetails.team}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardContent className="pt-4">
+                      <h3 className="font-semibold mb-2">Message:</h3>
+                      <p className="text-sm">{taskDetails.task}</p>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardContent className="pt-4">
+                      <div className="grid grid-cols-3 gap-4 text-sm">
+                        <div>
+                          <p className="font-semibold mb-2">Status:</p>
+                          <Badge variant="secondary" className={`${getStatusColor(taskDetails.status)} px-1.5 py-0.5 text-xs`}>
+                            {taskDetails.status}
+                          </Badge>
+                        </div>
+                        <div>
+                          <p className="font-semibold mb-2">Created:</p>
+                          <p>{new Date(taskDetails.createdAt).toLocaleString()}</p>
+                        </div>
+                        <div>
+                          <p className="font-semibold mb-2">Updated:</p>
+                          <p>{new Date(taskDetails.updatedAt).toLocaleString()}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
+        </>
       )
     },
   }
