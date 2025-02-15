@@ -42,6 +42,12 @@ return (
                         <span>Users</span>
                         </Link>
                     </SidebarMenuButton>
+                    <SidebarMenuButton asChild>
+                        <Link to="/attendance" className="hover:bg-zinc-300 dark:hover:bg-zinc-800">
+                        <Users className="size-4" />
+                        <span>Attendance</span>
+                        </Link>
+                    </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarGroupContent>

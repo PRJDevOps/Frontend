@@ -70,7 +70,7 @@ export default function LoginPage() {
               navigate('/user/add-account');
             }
           } catch (error) {
-            navigate('/add-account');
+            navigate('/user/add-account');
           }
         }
       }
