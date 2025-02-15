@@ -24,38 +24,7 @@ export const Navbar = () => {
             </Link>
           </div>
 
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link to="/pricing" className="text-foreground hover:text-primary transition-colors">
-              Pricing
-            </Link>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center text-foreground hover:text-primary transition-colors">
-                Resources <ChevronDown className="ml-1 h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>Documentation</DropdownMenuItem>
-                <DropdownMenuItem>Tutorials</DropdownMenuItem>
-                <DropdownMenuItem>Blog</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center text-foreground hover:text-primary transition-colors">
-                Community <ChevronDown className="ml-1 h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>Discord</DropdownMenuItem>
-                <DropdownMenuItem>GitHub</DropdownMenuItem>
-                <DropdownMenuItem>Twitter</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <Link to="/download" className="text-foreground hover:text-primary transition-colors">
-              Download
-            </Link>
-          </div>
+          
 
           {/* Right side buttons */}
           <div className="hidden md:flex items-center bg-white dark:bg-gray-950 text-xs font-medium backdrop-blur-3xl space-x-4">

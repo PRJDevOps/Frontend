@@ -10,9 +10,9 @@ const Home = () => {
     <HeroSection
       title="Welcome to Our Platform"
     
-      description="Transform your ideas into reality with our comprehensive suite of development tools and resources."
+      description="Optimize workforce and project management effortlessly. Track employees, assign tasks, monitor performance, and maximize resources securely."
       ctaText="Get Started"
-      ctaHref="/signup"
+      ctaHref="/login"
       bottomImage={{
         light: "https://www.launchuicomponents.com/app-light.png",
         dark: "https://www.launchuicomponents.com/app-dark.png",
